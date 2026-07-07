@@ -1,4 +1,5 @@
 import Menu from "@/components/Menu";
+import Navbar from "@/components/Navbar";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Image from "next/image";
@@ -32,8 +33,9 @@ export default function RootLayout({
         </div>
         <Menu/>
        </div>
-       <div className="w-[86%] h-full bg-green-300">
-        right
+       <div className="w-[86%] h-full ">
+        <Navbar/>
+        {children}
        </div>
        
    </div>

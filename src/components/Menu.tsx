@@ -116,20 +116,26 @@ const menuItems = [
 ];
 const Menu = () =>{
   return (
-    <div className="mt-1 pl-4">
-           {menuItems.map((ele,i)=>(
-             <div className="flex flex-col gap-1.5 max-md:gap-3 max-md:justify-center max-md:items-center" key={i}>
-                  <p className="text-lg font-semibold mb-1  self-start max-md:hidden text-gray-700">{ele.title}</p>
-                      {ele.items.map((item)=>(
-                        <Link href={item.href} className="flex text-gray-500 gap-1 hover:text-gray-800 transition-all duration-300 " key={item.label}>
-                             <Image alt={item.label} src={item.icon} width={20} height={30}/>
-                              <span className="text-sm max-md:hidden">{item.label}</span>
-                        </Link>
-                      ))}
-                     
-                </div>
-           ))}
+    <div className="mt-2 pl-3 flex flex-col gap-6">
+  {menuItems.map((ele, i) => (
+    <div className="flex flex-col gap-1 max-md:items-center" key={i}>
+      <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 px-3 self-start max-md:hidden">
+        {ele.title}
+      </p>
+
+      {ele.items.map((item) => (
+        <Link
+          href={item.href}
+          className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-all duration-200 max-md:justify-center max-md:px-2"
+          key={item.label}
+        >
+          <Image alt={item.label} src={item.icon} width={20} height={20} />
+          <span className="text-sm font-medium max-md:hidden">{item.label}</span>
+        </Link>
+      ))}
     </div>
+  ))}
+</div>
   )
 }
 export default Menu;  

@@ -1,6 +1,7 @@
+import Menu from "@/components/Menu";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,8 +25,12 @@ export default function RootLayout({
 }>) {
   return (
    <div className={`  antialiased h-screen flex`}>
-       <div className="sm:w-[14%] max-sm:w-[20%] h-full  bg-red-300">
-        left
+       <div className="sm:w-[14%]  max-sm:w-[20%] py-6 h-full  ">
+        <div className="flex px-4 max-md:hidden  gap-1">
+                <span className="text-black text-lg">School Dev</span>
+        <Image src="/logo.png" width={40} height={50} alt="logo" />
+        </div>
+        <Menu/>
        </div>
        <div className="w-[86%] h-full bg-green-300">
         right

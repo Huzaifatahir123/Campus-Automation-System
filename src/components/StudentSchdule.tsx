@@ -1,28 +1,38 @@
 "use client"
-
-import { Calendar, momentLocalizer } from 'react-big-calendar'
+import { useState } from 'react'
+import { Calendar, momentLocalizer ,View,Views} from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { calendarEvents } from "@/lib/data"
 
 const localizer = momentLocalizer(moment)
 
-const myEventsList = calendarEvents.map((event: any) => ({
-  ...event,
-  start: new Date(event.start),
-  end: new Date(event.end),
-}))
 
-const MyCalendar = () => (
-  <div>
+const MyCalendar = () => {
+  
+  const [view,setView] = useState<View>(Views.WORK_WEEK);
+  const handleChange = (selectedView:View) => {
+            setView(selectedView);
+  }
+    return (
+      
     <Calendar
       localizer={localizer}
-      events={myEventsList}
+      events={calendarEvents}
       startAccessor="start"
       endAccessor="end"
-      style={{ height: 500 }}
+      views={["work_week","day"]}
+      view={view}
+      style={{ height: "98%" }}
+      onView={handleChange}
+      min={new Date(2026, 6, 10, 8, 0, 0)}
+  max={new Date(2026, 6, 10, 17, 0, 0)}
     />
-  </div>
-)
+  
+    )
+
+  
+  
+}
 
 export default MyCalendar

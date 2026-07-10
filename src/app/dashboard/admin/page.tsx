@@ -18,7 +18,7 @@ const page = () => {
         </div>
 
         <div className="w-full gap-4  flex max-lg:flex-col max-lg:justify-center max-lg:items-center ">
-          <div className="w-full h-96 lg:w-[33%] bg-white rounded-2xl p-4 shadow-sm">
+          <div className="w-full h-100 lg:w-[33%] bg-white rounded-2xl p-4 shadow-sm">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-sm font-semibold text-gray-700">Students</h3>
               <div className="flex gap-3">

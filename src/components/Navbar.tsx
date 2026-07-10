@@ -33,7 +33,7 @@ const Navbar = () => {
 
     <div className='flex items-center gap-3'>
       <div className='flex flex-col items-end max-md:hidden'>
-        <span className='text-sm font-medium text-gray-700 leading-tight'>John Doe</span>
+        <span className='text-sm font-medium text-gray-700 leading-tight'>huzaifa</span>
         <span className='text-xs text-gray-400 leading-tight'>Student</span>
       </div>
       <Image

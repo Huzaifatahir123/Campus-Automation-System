@@ -1,8 +1,17 @@
 import React from 'react'
+import StudentSchdule from '@/components/StudentSchdule'
 
 const page = () => {
   return (
-    <div>student</div>
+    <div>
+      <div>
+         <StudentSchdule/>
+      </div>
+      <div>
+
+      </div>
+
+    </div>
   )
 }
 

@@ -10,10 +10,10 @@ function Cal() {
   const [value, onChange] = useState<Value>(new Date());
 
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-sm">
+    <div className="bg-white w-full  rounded-2xl p-4 shadow-sm">
       <h3 className="text-sm font-semibold text-gray-700 mb-3">Calendar</h3>
 
-      <Calendar onChange={onChange} value={value} />
+      <Calendar  onChange={onChange} value={value} />
       
     </div>
   );

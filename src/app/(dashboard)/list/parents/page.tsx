@@ -37,10 +37,7 @@ const page = () => {
     header: "Students",
    className:"tabel-cell max-md:hidden"
     },
-    {
-    header: "Actions",
-    className:"tabel-cell"
-    },
+   
 ]
   return (
     <div className="px-6 md:px-10 lg:px-24 py-4 w-full  h-full flex flex-col ">

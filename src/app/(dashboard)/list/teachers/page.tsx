@@ -4,37 +4,41 @@ import React from 'react'
 import Table from '@/components/Table'
 import { teachersData } from '@/lib/data'
 const page = () => {
+   
   const coloumn = [
     {
-    name: "info",
-    className:"tabel-cell"
+    header: "Teacher-Name",
+    accessor: "name",
+   className:"tabel-cell"
     },
     {
-    name: "id",
-    className:"tabel-cell"
+      accessor:"teacherId",
+    header: "id",
+   className:"tabel-cell"
+    },
+   
+    {
+      accessor: "email",
+    header: "Email",
+   className:"tabel-cell max-md:hidden"
     },
     {
-    name: "teacher-Name",
-    className:"tabel-cell"
+      accessor: "address",
+    header: "Address",
+   className:"tabel-cell max-md:hidden"
     },
     {
-    name: "email",
-    className:"tabel-cell max-md:hidden"
+      accessor: "phone",
+    header: "Phone",
+   className:"tabel-cell max-md:hidden"
     },
     {
-    name: "address",
-    className:"tabel-cell max-md:hidden"
+      accessor: "classes",
+    header: "Classes",
+   className:"tabel-cell max-md:hidden"
     },
     {
-    name: "phone",
-    className:"tabel-cell max-md:hidden"
-    },
-    {
-    name: "Classes",
-    className:"tabel-cell max-md:hidden"
-    },
-    {
-    name: "Actions",
+    header: "Actions",
     className:"tabel-cell"
     },
 ]
@@ -68,8 +72,18 @@ const page = () => {
         </div>
     </div>
  {/* bottom section */}
+
  <div className='w-full h-full mt-2'>
-  <Table coloumn={coloumn} Data={teachersData}/>
+{
+  teachersData ? (
+    <Table coloumn={coloumn} Data={teachersData}/>
+  ) : (
+    <div>
+      no teachers found 
+    </div>
+  )
+}
+  
 </div>
     </div>
   )

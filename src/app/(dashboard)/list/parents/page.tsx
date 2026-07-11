@@ -6,31 +6,39 @@ import { parentsData } from '@/lib/data'
 const page = () => {
   const coloumn = [
     {
-    name: "info",
-    className:"tabel-cell"
+      accessor:"id",
+    header: "id",
+   className:"tabel-cell"
     },
     {
-    name: "Parent-Name",
-    className:"tabel-cell"
+    header: "Parent-Name",
+    accessor: "name",
+   className:"tabel-cell"
+    },
+    
+   
+    {
+      accessor: "email",
+    header: "Email",
+   className:"tabel-cell max-md:hidden"
     },
     {
-    name: "email",
-    className:"tabel-cell max-md:hidden"
+      accessor: "address",
+    header: "Address",
+   className:"tabel-cell max-md:hidden"
     },
     {
-    name: "address",
-    className:"tabel-cell max-md:hidden"
+      accessor: "phone",
+    header: "Phone",
+   className:"tabel-cell max-md:hidden"
     },
     {
-    name: "phone",
-    className:"tabel-cell max-md:hidden"
+      accessor: "students",
+    header: "Students",
+   className:"tabel-cell max-md:hidden"
     },
     {
-    name: "Students",
-    className:"tabel-cell max-md:hidden"
-    },
-    {
-    name: "Actions",
+    header: "Actions",
     className:"tabel-cell"
     },
 ]

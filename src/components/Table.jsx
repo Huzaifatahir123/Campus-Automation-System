@@ -24,6 +24,7 @@ const Table = ({coloumn,Data}) => {
             <tr key={i} className=' border-b border-slate-100 odd:bg-lama-yellow-light even:bg-lama-sky-light hover:bg-slate-50 transition-colors'>
                 {coloumn.map((col,colindex)=>(
                     <td key={colindex} className='py-6 px-6  text-sm text-slate-600'>
+                        
                         {ele[col.accessor]}
                     </td>
                 ))}

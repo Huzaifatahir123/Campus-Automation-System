@@ -2,46 +2,38 @@ import TextFeild from '@/components/TextFeild'
 import Image from 'next/image'
 import React from 'react'
 import Table from '@/components/Table'
-import { teachersData } from '@/lib/data'
+import {assignmentsData } from '@/lib/data'
 const page = () => {
    
   const coloumn = [
+     {
+      accessor:"id",
+    header: "Assignment-Id",
+   className:"tabel-cell"
+    },
     {
-    header: "Teacher-Name",
+    header: "Class-Name",
     accessor: "name",
    className:"tabel-cell"
     },
-    {
-      accessor:"teacherId",
-    header: "id",
-   className:"tabel-cell"
-    },
+   
    
     {
-      accessor: "email",
-    header: "Email",
+      accessor: "subject",
+    header: "Subject",
    className:"tabel-cell max-md:hidden"
     },
     {
-      accessor: "address",
-    header: "Address",
+      accessor: "teacher",
+    header: "Teacher",
    className:"tabel-cell max-md:hidden"
     },
     {
-      accessor: "phone",
-    header: "Phone",
+      accessor: "dueDate",
+    header: "DueDate",
    className:"tabel-cell max-md:hidden"
     },
-    {
-      accessor: "classes",
-    header: "Classes",
-   className:"tabel-cell max-md:hidden"
-    },
-    {
-      accessor: "subjects",
-    header: "Subjects",
-   className:"tabel-cell "
-    },
+   
    
 ]
 
@@ -50,7 +42,7 @@ const page = () => {
      
     {/* top section */}
     <div className='w-full flex gap-2 justify-between max-sm:justify-center items-center '>
-        <h1 className='text-xl text-gray-500 max-sm:text-sm'>All Teachers </h1>
+        <h1 className='text-xl text-gray-500 max-sm:text-sm'>All Assignments </h1>
         <div className="flex gap-2 justify-center  items-center">
         <TextFeild/>
         
@@ -77,8 +69,8 @@ const page = () => {
 
  <div className='w-full h-full mt-2'>
 {
-  teachersData ? (
-    <Table coloumn={coloumn} Data={teachersData}/>
+ assignmentsData ? (
+    <Table coloumn={coloumn} Data={assignmentsData}/>
   ) : (
     <div>
       no teachers found 

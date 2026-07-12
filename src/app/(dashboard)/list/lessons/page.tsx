@@ -2,46 +2,34 @@ import TextFeild from '@/components/TextFeild'
 import Image from 'next/image'
 import React from 'react'
 import Table from '@/components/Table'
-import { teachersData } from '@/lib/data'
+import { lessonsData } from '@/lib/data'
 const page = () => {
    
   const coloumn = [
-    {
-    header: "Teacher-Name",
-    accessor: "name",
+     {
+      accessor:"id",
+    header: "Lesson-Id",
    className:"tabel-cell"
     },
     {
-      accessor:"teacherId",
-    header: "id",
+    header: "Subject",
+    accessor: "subject",
    className:"tabel-cell"
     },
    
+   
     {
-      accessor: "email",
-    header: "Email",
+      accessor: "class",
+    header: "Class",
    className:"tabel-cell max-md:hidden"
     },
+  
     {
-      accessor: "address",
-    header: "Address",
+      accessor: "teacher",
+    header: "Teacher",
    className:"tabel-cell max-md:hidden"
     },
-    {
-      accessor: "phone",
-    header: "Phone",
-   className:"tabel-cell max-md:hidden"
-    },
-    {
-      accessor: "classes",
-    header: "Classes",
-   className:"tabel-cell max-md:hidden"
-    },
-    {
-      accessor: "subjects",
-    header: "Subjects",
-   className:"tabel-cell "
-    },
+   
    
 ]
 
@@ -77,11 +65,11 @@ const page = () => {
 
  <div className='w-full h-full mt-2'>
 {
-  teachersData ? (
-    <Table coloumn={coloumn} Data={teachersData}/>
+  lessonsData ? (
+    <Table coloumn={coloumn} Data={lessonsData}/>
   ) : (
     <div>
-      no teachers found 
+      no lesson Found found 
     </div>
   )
 }

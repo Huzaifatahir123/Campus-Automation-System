@@ -40,7 +40,7 @@ const page = () => {
    
 ]
   return (
-    <div className="px-6 md:px-10 lg:px-24 py-4 w-full  h-full flex flex-col ">
+    <div className="px-6 md:px-10  py-4 w-full  h-full flex flex-col ">
      
     {/* top section */}
     <div className='w-full flex gap-2 justify-between max-sm:justify-center items-center '>

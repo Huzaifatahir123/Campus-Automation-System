@@ -13,7 +13,7 @@ const page = () => {
     },
     {
     header: "Class-Name",
-    accessor: "name",
+    accessor: "class",
    className:"tabel-cell"
     },
    

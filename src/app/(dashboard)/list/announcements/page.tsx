@@ -2,26 +2,34 @@ import TextFeild from '@/components/TextFeild'
 import Image from 'next/image'
 import React from 'react'
 import Table from '@/components/Table'
-import { subjectsData } from '@/lib/data'
+import {announcementsData } from '@/lib/data'
 const page = () => {
    
   const coloumn = [
      {
       accessor:"id",
-    header: "Id",
+    header: "Annoucement-Id",
    className:"tabel-cell"
     },
     {
-    header: "Subject-Name",
-    accessor: "name",
+      accessor: "title",
+    header: "Title",
+   className:"tabel-cell max-md:hidden"
+    },
+    
+    {
+    header: "Class-Name",
+    accessor: "class",
    className:"tabel-cell"
     },
+      
    
+      
    
     {
-      accessor: "teachers",
-    header: "Teachers",
-   className:"tabel-cell "
+      accessor: "date",
+    header: "Date",
+   className:"tabel-cell max-md:hidden"
     },
    
    
@@ -32,7 +40,7 @@ const page = () => {
      
     {/* top section */}
     <div className='w-full flex gap-2 justify-between max-sm:justify-center items-center '>
-        <h1 className='text-xl text-gray-500 max-sm:text-sm'>All Subjects </h1>
+        <h1 className='text-xl text-gray-500 max-sm:text-sm'>All Annoucements </h1>
         <div className="flex gap-2 justify-center  items-center">
         <TextFeild/>
         
@@ -59,11 +67,11 @@ const page = () => {
 
  <div className='w-full h-full mt-2'>
 {
-  subjectsData ? (
-    <Table coloumn={coloumn} Data={subjectsData}/>
+announcementsData ? (
+    <Table coloumn={coloumn} Data={announcementsData}/>
   ) : (
     <div>
-      no Subjects found 
+      no annoucements found 
     </div>
   )
 }

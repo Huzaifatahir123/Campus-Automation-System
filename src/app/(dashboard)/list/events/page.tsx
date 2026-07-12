@@ -2,26 +2,42 @@ import TextFeild from '@/components/TextFeild'
 import Image from 'next/image'
 import React from 'react'
 import Table from '@/components/Table'
-import { subjectsData } from '@/lib/data'
+import {eventsData } from '@/lib/data'
 const page = () => {
    
   const coloumn = [
+    {
+      accessor: "title",
+    header: "Title",
+   className:"tabel-cell max-md:hidden"
+    },
      {
       accessor:"id",
-    header: "Id",
+    header: "Event-Id",
    className:"tabel-cell"
     },
     {
-    header: "Subject-Name",
-    accessor: "name",
+    header: "Class-Name",
+    accessor: "class",
    className:"tabel-cell"
     },
+      
    
+      {
+      accessor: "startTime",
+    header: "Start",
+   className:"tabel-cell max-md:hidden"
+    },
+      {
+      accessor: "endTime",
+    header: "End",
+   className:"tabel-cell max-md:hidden"
+    },
    
     {
-      accessor: "teachers",
-    header: "Teachers",
-   className:"tabel-cell "
+      accessor: "date",
+    header: "Date",
+   className:"tabel-cell max-md:hidden"
     },
    
    
@@ -32,7 +48,7 @@ const page = () => {
      
     {/* top section */}
     <div className='w-full flex gap-2 justify-between max-sm:justify-center items-center '>
-        <h1 className='text-xl text-gray-500 max-sm:text-sm'>All Subjects </h1>
+        <h1 className='text-xl text-gray-500 max-sm:text-sm'>All events </h1>
         <div className="flex gap-2 justify-center  items-center">
         <TextFeild/>
         
@@ -59,11 +75,11 @@ const page = () => {
 
  <div className='w-full h-full mt-2'>
 {
-  subjectsData ? (
-    <Table coloumn={coloumn} Data={subjectsData}/>
+ eventsData ? (
+    <Table coloumn={coloumn} Data={eventsData}/>
   ) : (
     <div>
-      no Subjects found 
+      no events found 
     </div>
   )
 }

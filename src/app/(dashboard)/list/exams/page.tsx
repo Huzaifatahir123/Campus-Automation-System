@@ -43,7 +43,7 @@ const page = () => {
      
     {/* top section */}
     <div className='w-full flex gap-2 justify-between max-sm:justify-center items-center '>
-        <h1 className='text-xl text-gray-500 max-sm:text-sm'>All Teachers </h1>
+        <h1 className='text-xl text-gray-500 max-sm:text-sm'>All Exam </h1>
         <div className="flex gap-2 justify-center  items-center">
         <TextFeild/>
         

@@ -10,7 +10,7 @@ const Table = ({coloumn,Data}) => {
         {coloumn.map((ele) => (
           <th
             key={ele.header}
-            className={`${ele.className} text-left text-xs font-medium uppercase tracking-wide text-slate-500 py-3 px-4`}
+            className={`text-left text-xs font-medium uppercase tracking-wide text-slate-500 py-3 px-4`}
           >
             {ele.header}
           </th>
@@ -21,7 +21,7 @@ const Table = ({coloumn,Data}) => {
     </thead>
     <tbody>
         {Data.map((ele,i)=>(
-            <tr key={i} className=' border-b border-slate-100 odd:bg-lama-yellow-light even:bg-lama-sky-light hover:bg-slate-50 transition-colors'>
+              <tr key={i} className={` border-b border-slate-100 odd:bg-lama-yellow-light even:bg-lama-sky-light hover:bg-slate-50 transition-colors`}>
                 {coloumn.map((col,colindex)=>(
                     <td key={colindex} className='py-6 px-6  text-sm text-slate-600'>
                         

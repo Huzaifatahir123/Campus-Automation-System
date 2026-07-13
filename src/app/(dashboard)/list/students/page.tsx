@@ -46,12 +46,12 @@ const page = () => {
 ]
 
   return (
-    <div className="px-6 md:px-10  py-4 w-full  h-full flex flex-col ">
+    <div className="px-4 md:px-8  py-4 w-full  h-full flex flex-col ">
      
     {/* top section */}
-    <div className='w-full flex gap-2 justify-between max-sm:justify-center items-center '>
+    <div className='w-full flex justify-around md:justify-between  items-center '>
         <h1 className='text-xl text-gray-500 max-sm:text-sm'>All Students </h1>
-        <div className="flex gap-2 justify-center  items-center">
+        <div className="flex gap-4 justify-center  items-center">
         <TextFeild/>
         
         <div className='flex w-8 h-8  bg-lama-yellow rounded-full justify-center items-center'>
@@ -75,7 +75,7 @@ const page = () => {
     </div>
  {/* bottom section */}
 
- <div className='w-full h-full mt-2'>
+ <div className='w-full h-full     mt-2'>
 {
   studentsData ? (
     <Table coloumn={coloumn} Data={studentsData}/>

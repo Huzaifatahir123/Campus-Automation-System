@@ -24,7 +24,7 @@ const AttendenceChart = () => {
   return (
     <div className='w-full h-full bg-white rounded-2xl p-4 shadow-sm'>
         <BarChart
-      style={{ width: '100%', maxWidth: '700px', height: '96%',aspectRatio: 1.618 }}
+      style={{ width: '100%', maxWidth: '700px', outline:'none', height: '96%',aspectRatio: 1.618 }}
       responsive
       data={data}
       margin={{
@@ -34,13 +34,13 @@ const AttendenceChart = () => {
         bottom: 5,
       }}
     >
-      <CartesianGrid strokeDasharray="3 3" />
+      <CartesianGrid />
       <XAxis dataKey="name" />
       <YAxis width="auto" />
       <Tooltip />
       <Legend />
-      <Bar dataKey="present" fill="#C3EBFA" activeBar={{ fill: 'green', stroke: 'white' }} radius={[10, 10, 0, 0]} />
-      <Bar dataKey="absent" fill="#FAE27C" activeBar={{ fill: 'red', stroke: 'white' }} radius={[10, 10, 0, 0]} />
+      <Bar dataKey="present" fill="green" activeBar={{ fill: 'green', stroke: 'white' }} radius={[10, 10, 0, 0]} />
+      <Bar dataKey="absent" fill="red" activeBar={{ fill: 'red', stroke: 'white' }} radius={[10, 10, 0, 0]} />
       
     </BarChart>
     </div>

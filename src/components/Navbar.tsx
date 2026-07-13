@@ -1,9 +1,11 @@
+"use client"
 import Image from 'next/image'
-import React from 'react'
-
+import {Menu} from "lucide-react"
+import { useStore } from '@/store/useStore'
 const Navbar = () => {
+  const toggleNavbar = useStore((state) => state.toggleNavbar);
   return (
-    <div className='w-full py-4 px-8 flex justify-between items-center max-md:justify-end border-b border-gray-100 bg-white'>
+    <div className='w-full py-4  px-4 sm:px-8 flex   justify-between items-center max-md:gap-8 border-b border-gray-100 bg-white'>
 
   <div className='hidden md:flex gap-2 items-center border border-gray-200 px-4 py-2 rounded-full w-64 focus-within:border-gray-400 transition-colors duration-200'>
     <Image src="/search.png" alt='search' height={16} width={16} className='opacity-50' />
@@ -13,7 +15,7 @@ const Navbar = () => {
       className='text-sm outline-none w-full placeholder:text-gray-400'
     />
   </div>
-
+   <Menu onClick={toggleNavbar} className='max-md:block hidden'/>
   <div className='flex justify-center items-center gap-5'>
 
     <div className='flex items-center gap-4'>
@@ -29,7 +31,7 @@ const Navbar = () => {
       </button>
     </div>
 
-    <div className='w-px h-6 bg-gray-200 max-md:hidden' />
+   
 
     <div className='flex items-center gap-3'>
       <div className='flex flex-col items-end max-md:hidden'>

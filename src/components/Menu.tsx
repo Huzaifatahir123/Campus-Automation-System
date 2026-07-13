@@ -1,6 +1,9 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import {role} from "@/lib/data"
+import { useStore } from "@/store/useStore";
+
 const menuItems = [
   {
     title: "MENU",
@@ -116,11 +119,12 @@ const menuItems = [
   },
 ];
 const Menu = () =>{
+  const toggleNavbar = useStore((state) => state.toggleNavbar);
   return (
-    <div className="mt-2 pl-3 flex flex-col gap-6">
+    <div className="mt-2 h-full pl-3  flex flex-col gap-6">
   {menuItems.map((ele, i) => (
-    <div className="flex flex-col gap-1 max-md:items-center" key={i}>
-      <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 px-3 self-start max-md:hidden">
+    <div className="flex h-full flex-col gap-1 bg-white  " key={i}>
+      <p className="text-xs bg-white font-semibold uppercase  tracking-wider text-gray-400 mb-2 px-3 self-start ">
         {ele.title}
       </p>
 
@@ -128,12 +132,14 @@ const Menu = () =>{
         if(item.visible.includes(role)){
           return (
         <Link
+          
           href={`${item.href}`}
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-500 hover:text-gray-800 hover:bg-lama-sky transition-all duration-200 max-md:justify-center max-md:px-2"
+          onClick={toggleNavbar}
+          className="flex items-center gap-3 px-3 py-2 rounded-lg   text-gray-500 hover:text-gray-800 hover:bg-lama-sky justify- transition-all duration-200  max-md:px-2"
           key={item.label}
         >
           <Image alt={item.label} src={item.icon} width={20} height={20} />
-          <span className="text-sm font-medium max-md:hidden">{item.label}</span>
+          <span className="text-sm font-medium ">{item.label}</span>
         </Link>)
 
         }

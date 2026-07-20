@@ -6,7 +6,12 @@ import ExpsenseChart from "@/components/ExpenseChart";
 import Cal from "@/components/Calendar";
 import Event from "@/components/Event";
 import Announcement from "@/components/Announcement";
+
 const page = () => {
+ 
+
+
+  
   return (
     <div className=" px-4 lg:px-8 md:flex gap-2 max-sm:flex-col max-sm:gap-5 max-sm:justify-center max-sm:items-center   py-10 w-full h-full  ">
       <div className="w-full flex-col flex gap-5   lg:w-2/3">

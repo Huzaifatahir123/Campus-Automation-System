@@ -39,8 +39,8 @@ const AttendenceChart = () => {
       <YAxis width="auto" />
       <Tooltip />
       <Legend />
-      <Bar dataKey="present" fill="green" activeBar={{ fill: 'green', stroke: 'white' }} radius={[10, 10, 0, 0]} />
-      <Bar dataKey="absent" fill="red" activeBar={{ fill: 'red', stroke: 'white' }} radius={[10, 10, 0, 0]} />
+      <Bar dataKey="present" fill="#cfceff" activeBar={{ fill: 'green', stroke: 'white' }} radius={[10, 10, 0, 0]} />
+      <Bar dataKey="absent" fill="#c3ebfa" activeBar={{ fill: 'red', stroke: 'white' }} radius={[10, 10, 0, 0]} />
       
     </BarChart>
     </div>

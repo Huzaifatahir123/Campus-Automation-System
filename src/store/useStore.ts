@@ -4,6 +4,6 @@ interface Store {
    toggleNavbar:()=>void;
 }
 export const useStore = create<Store>((set)=>({
-   isNavbarOpen:true,
+   isNavbarOpen:false,
    toggleNavbar:()=> set((state)=>({isNavbarOpen:!state.isNavbarOpen})),
 }))

@@ -17,7 +17,7 @@ export async function POST(req:NextResponse){
     }
     const query = `SELECT u.id , u.first_name , u.email ,r.name As role , u.password_hash from users AS u INNER JOIN roles AS r ON u.role_id = r.id WHERE u.email = $1  AND u.is_Active = TRUE `
     const user = (await pool.query(query,[email])).rows[0];
-    console.log(user)
+   
     if(!user){
         return NextResponse.json({message:"User does not found"},{status:404})
     }

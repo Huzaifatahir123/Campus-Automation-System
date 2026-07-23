@@ -1,6 +1,9 @@
+"use client"
 import React from 'react'
+import { useStore } from '@/store/useStore'
 
 const unauthorize = () => {
+  const Role = useStore((state) => state.Role);
   return (
     <div className="min-h-screen flex items-center justify-center bg-white px-4">
   <div className="w-full max-w-md text-center">
@@ -25,7 +28,7 @@ const unauthorize = () => {
 
     <div className="flex items-center justify-center gap-4">
       <a
-        href="/"
+        href={`/${Role}`}
         className="px-6 py-3 bg-black text-white text-sm uppercase tracking-wide hover:bg-neutral-800 transition-colors"
       >
         Return Home

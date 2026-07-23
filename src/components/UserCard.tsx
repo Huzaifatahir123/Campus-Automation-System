@@ -3,7 +3,7 @@ import React from 'react'
 
 const UserCard = ({type}: {type:string}) => {
   return (
-    <div className='flex flex-col justify-start gap-8 odd:bg-lama-sky even:bg-lama-yellow rounded-2xl p-4   shadow-sm max-lg:w-full min-w-50 flex-1 hover:shadow-md transition-shadow duration-200'>
+    <div className='flex flex-col justify-start gap-8 odd:bg-neutral-400 even:bg-accent-300 rounded-2xl p-4   shadow-sm max-lg:w-full min-w-50 flex-1 hover:shadow-md transition-shadow duration-200'>
   <div className='flex justify-between items-center'>
     <span className='text-xs bg-white/70 text-gray-600 px-2 py-1 rounded-full font-medium'>
       24/6/2026

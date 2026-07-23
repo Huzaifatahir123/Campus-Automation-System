@@ -7,8 +7,11 @@ interface formStates {
   email:string,
   password:string,
 }
+import {useStore} from "@/store/useStore";
+
 const page = () => {
   const router = useRouter();
+  const setRole = useStore((state)=>state.setRole);
   const [formData , setFormData] = useState<formStates>({
     email:"",
     password:"",
@@ -32,6 +35,7 @@ const page = () => {
             ,
         }) 
         const data = await response.json();
+        setRole(data.data.role.toLowerCase());
         console.log(data.data);
         
         if(data.data.role === "Admin") { 

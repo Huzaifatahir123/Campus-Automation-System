@@ -1,6 +1,9 @@
+import AddRecord from "@/components/AddRecord"
 export default function Home() {
   return (
-    <div>HOME PAGE</div>  
+    <div className="relative w-screen h-screen">
+      <AddRecord type="create" role="parent" isEdit={false} />
+      </div>  
   );
 
 }

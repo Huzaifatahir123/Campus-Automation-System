@@ -7,11 +7,15 @@ interface Store {
   Role: string;
   setRole: (role: string) => void;
   Logout: () => void;
+  isFormOpen:boolean;
+  toggleForm:()=>void;
 }
 
 export const useStore = create<Store>()(
   persist(
     (set) => ({
+      isFormOpen:false,
+      toggleForm:()=>set((state)=>({isFormOpen:!state.isFormOpen})),
       isNavbarOpen: false,
       toggleNavbar: () => set((state) => ({ isNavbarOpen: !state.isNavbarOpen })),
       Role: "",

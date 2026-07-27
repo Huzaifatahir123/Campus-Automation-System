@@ -24,6 +24,11 @@ export const userFields = [
     type: "password",
     placeholder: "Enter password"
   },
+  {
+    header: "date_of_birth",
+    type: "Date",
+    placeholder: "Enter date of birth"
+  },
 
   
 ];
@@ -33,11 +38,7 @@ export const studentFields = [
     type: "number",
     placeholder: "Enter registration number"
   },
-  {
-    header: "blood_group",
-    type: "text",
-    placeholder: "Enter blood group (e.g., A+, O-)"
-  },
+ 
 
  
   {
@@ -50,11 +51,7 @@ export const studentFields = [
     type: "text",
     placeholder: "Enter address"
   },
-  {
-    header: "status",
-    type: "text",
-    placeholder: "Enter status (e.g.,single,married)"
-  },
+
   
 ];
 export const parentFields = [

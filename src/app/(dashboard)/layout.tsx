@@ -29,7 +29,7 @@ export default function RootLayout({
    <div className={` antialiased h-screen flex`}>
         <MenuWrapper />
        <div className="w-full md:w-[86%]   h-full ">
-        <Navbar/>
+        
         {children}
        </div>
        

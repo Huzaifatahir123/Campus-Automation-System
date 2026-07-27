@@ -36,7 +36,7 @@ const page = () => {
         }) 
         const data = await response.json();
         setRole(data.data.role.toLowerCase());
-        console.log(data.data);
+        console.log(data.message);
         
         if(data.data.role === "Admin") { 
           router.push("/admin")

@@ -10,10 +10,10 @@ interface payload {
 }
 export async function POST(req:NextResponse){
     try {
-            const body = await req.json();
+    const body = await req.json();
     const {email,password} = body;
     if(!email || !password){
-        return NextResponse.json({message:"email or password is wrong"},{status:400})
+    return NextResponse.json({message:"email or password is wrong"},{status:400})
     }
     const query = `SELECT u.id , u.first_name , u.email ,r.name As role , u.password_hash from users AS u INNER JOIN roles AS r ON u.role_id = r.id WHERE u.email = $1  AND u.is_Active = TRUE `
     const user = (await pool.query(query,[email])).rows[0];
@@ -44,7 +44,7 @@ export async function POST(req:NextResponse){
     return NextResponse.json({
         message:"User Logged in Successfully",
         data:{
-            id: user.id,
+    id: user.id,
     first_name: user.first_name,
     email: user.email,
     role: user.role

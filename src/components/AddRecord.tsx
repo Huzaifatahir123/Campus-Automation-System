@@ -8,6 +8,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import axios from "axios"
+import {useStore} from "@/store/useStore";
+import {X,Loader2} from "lucide-react"
+import {toast} from "sonner"
 interface SectionOption {
   section_id: number;
   class_name: string;
@@ -19,17 +22,58 @@ const formSchema = z.object({
   last_name: z.string().min(2, 'Last name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
   phone: z.string().min(10, 'Phone number must be at least 10 digits'),
-  section_id: z.coerce.number({ message: "Please select a section" }),
+  password_hash: z.string().min(8, 'Password must be at least 8 characters'),
+  date_of_birth: z
+    .string()
+    .min(1, "Date of birth is required"),
+
+ 
+  registration_number: z
+    .string()
+    .min(1, "Registration number is required"),
+
+  parent_id: z
+    .string()
+    .min(1, "Parent ID is required"),
+
+  address: z
+    .string()
+    .min(5, "Address must be at least 5 characters"),
+
+  class_and_section: z
+    .number()
+    .min(1, "Please select class & section"),
+
+
+  blood_group: z.enum(["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"], {
+  message: "Please select a valid blood group",
+}),
+
+
+  status: z
+    .string()
+    .min(1, "Please select status"), // e.g., "Active" / "Inactive"
+
 
 }).passthrough();
 
 const AddRecord = ({type,role,data,isEdit}:{type?:string,role:string,data?:any,isEdit:boolean}) => {
-     const [claSec,setClasSec] = useState<SectionOption[]>([]);
-    const {register,handleSubmit ,formState:{errors}}  = useForm({
+  const isFormOpen = useStore((state)=>state.isFormOpen);
+  const toggleForm = useStore((state)=>state.toggleForm);
+     
+  const [claSec,setClasSec] = useState<SectionOption[]>([]);
+    const {register,handleSubmit ,formState:{errors,isSubmitting}}  = useForm({
   resolver: zodResolver(formSchema),
 }); 
-    const onFormSubmit = (data:any)=>{
-         console.log("form data",data)
+    
+    const onFormSubmit = async (data:any)=>{
+        try{
+         // const response = await axios.post(`/api/${role}/Add`,data);
+         // toast.message(response.data.message)
+        // console.log(data);
+        }catch(error){
+             console.error(error)
+        }
     }
     let renderFeilds: any = [];
        if(role === "parent"){
@@ -56,40 +100,23 @@ const AddRecord = ({type,role,data,isEdit}:{type?:string,role:string,data?:any,i
        },[])
   return (
 
-    <div className="absolute top-0 right-0 h-full w-96 bg-white border-l border-neutral-200 shadow-lg flex flex-col">
+    <div className={`${isFormOpen ? "flex" : "hidden"} absolute top-0 right-0 h-full w-104 bg-white border-l border-neutral-200 shadow-lg flex flex-col`}>
   <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-200">
     <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-800">
       Add {role}
     </h2>
-    <button
+    <button onClick={()=> toggleForm()}
       type="button"
       className="p-1.5 rounded-full text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition-colors"
       aria-label="Close panel"
     >
-    
+     <X/>
     </button>
   </div>
 
-  <form onSubmit={handleSubmit(onFormSubmit)} className="flex flex-col gap-5 px-5 py-6 overflow-y-auto">
+  <form onSubmit={handleSubmit(onFormSubmit,(errors) => console.log("Validation Errors:", errors))} className="flex flex-col gap-5 px-5 py-6 overflow-y-auto">
   
-  {role === "student" && (
-    <div className="flex flex-col gap-1.5 mb-4">
-      <label className="text-xs uppercase text-neutral-500 font-semibold">
-        Class & Section
-      </label>
-      <select
-        {...register("section_id", )}
-        className="w-full border border-neutral-300 rounded-lg px-3 py-2 text-sm"
-      >
-        <option value="">-- Select Class & Section --</option>
-        {claSec.map((sec) => (
-          <option key={sec.section_id} value={sec.section_id}>
-            {sec.display_label}
-          </option>
-        ))}
-      </select>
-    </div>
-  )}
+
     {renderArray.map((ele, i) => (
       <div className="flex flex-col gap-1.5" key={i}>
         <label className="text-xs uppercase tracking-wide text-neutral-500">
@@ -108,19 +135,91 @@ const AddRecord = ({type,role,data,isEdit}:{type?:string,role:string,data?:any,i
     )}
       </div>
     ))}
-  <div className="mt-auto flex gap-2 px-5 py-4 border-t border-neutral-200">
+      {role === "student" && (
+    <div className="flex flex-col gap-1.5 mb-4">
+      <label className="text-xs uppercase text-neutral-500 font-semibold">
+        Class & Section
+      </label>
+      <select
+        {...register("section_id", )}
+        className="w-full border border-neutral-300 rounded-lg px-3 py-2 text-sm"
+      >
+        <option value="">-- Select Class & Section --</option>
+        {claSec.map((sec) => (
+          <option key={sec.section_id} value={sec.section_id}>
+            {sec.display_label}
+          </option>
+        ))}
+      </select>
+       {errors.class_and_section && (
+      <span className="text-xs text-danger font-medium">
+        {errors.class_and_section?.message as string}
+      </span>
+      )}
+    </div>
+  )}
+  {role === "student" && (
+    <div className="flex flex-col gap-1.5 mb-4">
+      <label className="text-xs uppercase text-neutral-500 font-semibold">
+        Blood Group
+      </label>
+      <select
+        {...register("blood_group" )}
+        className="w-full border border-neutral-300 rounded-lg px-3 py-2 text-sm"
+      >
+    <option value="">-- Select Blood Group --</option>
+    <option value="A+">A+</option>
+    <option value="A-">A-</option>
+    <option value="B+">B+</option>
+    <option value="B-">B-</option>
+    <option value="O+">O+</option>
+    <option value="O-">O-</option>
+    <option value="AB+">AB+</option>
+    <option value="AB-">AB-</option>
+      </select>
+      {errors.blood_group && (
+      <span className="text-xs text-danger font-medium">
+        {errors.blood_group?.message as string}
+      </span>
+      )}
+    </div>
+  )}
+  {role === "student" && (
+    <div className="flex flex-col gap-1.5 mb-4">
+      <label className="text-xs uppercase text-neutral-500 font-semibold">
+        Status
+      </label>
+      <select
+        {...register("status" )}
+        className="w-full border border-neutral-300 rounded-lg px-3 py-2 text-sm"
+      >
+    <option value="">-- Select Status --</option>
+    <option value="Active">Active</option>
+    <option value="Graduated">Graduated</option>
+    <option value="Suspended">Suspended</option>
+    <option value="Transferred">Transferred</option>
+
+      </select>
+      {errors.status && (
+      <span className="text-xs text-danger font-medium">
+        {errors.status?.message as string}
+      </span>
+      )}
+    </div>
+  )}
+  <div className="mt-auto  bg-neutral-100 rounded-sm sticky bottom-0 flex gap-2 px-5 py-4 border-t border-neutral-200">
     <button
       type="reset"
-      className="flex-1 py-2.5 rounded-lg border border-neutral-300 text-neutral-700 text-sm font-medium hover:bg-neutral-50 transition-colors"
+      className="flex-1 py-2.5 rounded-lg border border-neutral-300 text-neutral-700 text-sm font-medium hover:bg-neutral-50 cursor-pointer transition-colors"
     >
       Reset
     </button>
     <button
       type="submit"
       
-      className="flex-1 py-2.5 rounded-lg bg-accent-500 text-white text-sm font-medium hover:bg-accent-700 transition-colors"
+      className="flex-1 flex cursor-pointer justify-center items-center py-2.5 rounded-lg bg-accent-500 text-white text-sm font-medium hover:bg-accent-700 transition-colors"
     >
-      Apply
+      {isSubmitting ? <Loader2 className="animate-spin" /> : "Register"}
     </button>
   </div>
   </form>

@@ -9,7 +9,7 @@ import {useStore} from "@/store/useStore";
 import {Plus} from "lucide-react"
 const page = () => {
     const toggleForm = useStore((state)=>state.toggleForm);
-    const isFormOpen = useStore((state)=>state.isFormOpen);
+    
   const coloumn = [
     {
     header: "Student-Name",
@@ -53,7 +53,7 @@ const page = () => {
   return (
     <div className="px-4 relative md:px-8  py-4 w-full  h-full flex flex-col ">
       
-      <AddRecord role='student' type='create'  isEdit={false} />
+      <AddRecord role='student' type='create'   />
      
     {/* top section */}
     <div className='w-full flex justify-around md:justify-between  items-center '>

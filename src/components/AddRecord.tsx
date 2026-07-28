@@ -11,6 +11,7 @@ import axios from "axios"
 import {useStore} from "@/store/useStore";
 import {X,Loader2} from "lucide-react"
 import {toast} from "sonner"
+import {createStudentSchema,createParentSchema,createTeacherSchema} from "@/utils/ZodSchema"
 interface SectionOption {
   section_id: number;
   class_name: string;
@@ -32,17 +33,13 @@ const formSchema = z.object({
     .string()
     .min(1, "Registration number is required"),
 
-  parent_id: z
-    .string()
-    .min(1, "Parent ID is required"),
+
 
   address: z
     .string()
     .min(5, "Address must be at least 5 characters"),
 
-  class_and_section: z
-    .number()
-    .min(1, "Please select class & section"),
+ 
 
 
   blood_group: z.enum(["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"], {
@@ -52,25 +49,31 @@ const formSchema = z.object({
 
   status: z
     .string()
-    .min(1, "Please select status"), // e.g., "Active" / "Inactive"
+    .min(1, "Please select status"), 
 
 
 }).passthrough();
 
-const AddRecord = ({type,role,data,isEdit}:{type?:string,role:string,data?:any,isEdit:boolean}) => {
+const AddRecord = ({type,role,data}:{type?:string,role:string,data?:any,}) => {
+  const schema =
+  role === "student"
+    ? createStudentSchema
+    : role === "teacher"
+    ? createTeacherSchema
+    : createParentSchema;
   const isFormOpen = useStore((state)=>state.isFormOpen);
   const toggleForm = useStore((state)=>state.toggleForm);
-     
+   
   const [claSec,setClasSec] = useState<SectionOption[]>([]);
-    const {register,handleSubmit ,formState:{errors,isSubmitting}}  = useForm({
-  resolver: zodResolver(formSchema),
+    const {register,handleSubmit ,formState:{errors,isSubmitting}}  = useForm<any>({
+  resolver: zodResolver(schema),
 }); 
     
     const onFormSubmit = async (data:any)=>{
         try{
-         // const response = await axios.post(`/api/${role}/Add`,data);
-         // toast.message(response.data.message)
-        // console.log(data);
+         const response = await axios.post(`/api/${role}/Add`,data);
+       toast.message(response.data.message)
+         console.log(data);
         }catch(error){
              console.error(error)
         }
@@ -114,10 +117,10 @@ const AddRecord = ({type,role,data,isEdit}:{type?:string,role:string,data?:any,i
     </button>
   </div>
 
-  <form onSubmit={handleSubmit(onFormSubmit,(errors) => console.log("Validation Errors:", errors))} className="flex flex-col gap-5 px-5 py-6 overflow-y-auto">
+  <form onSubmit={handleSubmit(onFormSubmit,(errors) => console.log("Validation Errors:", errors))} className="flex flex-col  gap-5 px-5 py-6 overflow-y-auto ">
   
 
-    {renderArray.map((ele, i) => (
+  {renderArray.map((ele, i) => (
       <div className="flex flex-col gap-1.5" key={i}>
         <label className="text-xs uppercase tracking-wide text-neutral-500">
           {ele.placeholder}
@@ -135,7 +138,7 @@ const AddRecord = ({type,role,data,isEdit}:{type?:string,role:string,data?:any,i
     )}
       </div>
     ))}
-      {role === "student" && (
+  {role === "student" && (
     <div className="flex flex-col gap-1.5 mb-4">
       <label className="text-xs uppercase text-neutral-500 font-semibold">
         Class & Section
@@ -151,9 +154,9 @@ const AddRecord = ({type,role,data,isEdit}:{type?:string,role:string,data?:any,i
           </option>
         ))}
       </select>
-       {errors.class_and_section && (
+       {errors.section_id && (
       <span className="text-xs text-danger font-medium">
-        {errors.class_and_section?.message as string}
+        {errors.section_id?.message as string}
       </span>
       )}
     </div>

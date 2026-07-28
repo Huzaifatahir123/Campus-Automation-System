@@ -1,8 +1,12 @@
+"use client"
 import TextFeild from '@/components/TextFeild'
 import Image from 'next/image'
 import React from 'react'
 import Table from '@/components/Table'
 import { teachersData } from '@/lib/data'
+import AddRecord from '@/components/AddRecord'
+import {useStore} from "@/store/useStore";
+import {Plus} from "lucide-react"
 const page = () => {
    
   const coloumn = [
@@ -44,10 +48,10 @@ const page = () => {
     },
    
 ]
-
+const toggleForm = useStore((state)=>state.toggleForm);
   return (
     <div className="px-6 md:px-10  py-4 w-full  h-full flex flex-col ">
-     
+     <AddRecord role='teacher' type='create' />
     {/* top section */}
     <div className='w-full flex gap-2 justify-between max-sm:justify-between items-center '>
         <h1 className='text-xl text-gray-500 max-sm:text-sm'>All Teachers </h1>
@@ -67,7 +71,7 @@ const page = () => {
         <div className='flex w-8 h-8  bg-lama-yellow rounded-full justify-center items-center'>
 
         
-        <Image src="/plus.png" width={20} height={5} alt="Add"  />
+         <Plus size={30} className='hover:bg-accent-300 rounded-full transition-all duration-150 o  ' onClick={()=>{toggleForm()}}   />
         
         </div>
         

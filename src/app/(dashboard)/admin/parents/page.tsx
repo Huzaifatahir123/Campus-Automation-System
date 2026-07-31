@@ -6,17 +6,26 @@ import { parentsData } from '@/lib/data'
 import AddRecord from "@/components/AddRecord"
 import {useStore} from "@/store/useStore";
 import {Plus} from "lucide-react"
-const page = () => {
+import { getParents } from '@/services/parent/fetchData'
+import { useEffect, useState } from 'react'
+import ListCard from '@/components/parent/ListCard'
+const page =  () => {
+  const[parents,setParents] = useState<any[]>([])
   const toggleForm = useStore((state)=>state.toggleForm);
+  const data = async ()=>{
+    const res:any = await getParents();
+    setParents(res.data.data);
+
+  }
+  useEffect(()=>{
+    data();
+  },[])
+  
   const coloumn = [
+    
     {
-      accessor:"id",
-    header: "id",
-   className:"tabel-cell"
-    },
-    {
-    header: "Parent-Name",
-    accessor: "name",
+    header: "first_name",
+    accessor: "first_name",
    className:"tabel-cell"
     },
     
@@ -24,12 +33,7 @@ const page = () => {
     {
       accessor: "email",
     header: "Email",
-   className:"tabel-cell max-md:hidden"
-    },
-    {
-      accessor: "address",
-    header: "Address",
-   className:"tabel-cell max-md:hidden"
+   className:"tabel-cell "
     },
     {
       accessor: "phone",
@@ -37,10 +41,16 @@ const page = () => {
    className:"tabel-cell max-md:hidden"
     },
     {
-      accessor: "students",
-    header: "Students",
+      accessor: "occupation",
+    header: "Occupation",
    className:"tabel-cell max-md:hidden"
     },
+    {
+      accessor: "relationship",
+    header: "Relation",
+   className:"tabel-cell max-md:hidden"
+    },
+  
    
 ]
   return (
@@ -72,9 +82,10 @@ const page = () => {
         </div>
     </div>
  {/* bottom section */}
- <div className='w-full h-full mt-2'>
-  <Table coloumn={coloumn} Data={parentsData}/>
-</div>
+ <div className='w-full mt-4'>
+
+<ListCard role='parent' data={parents}/>
+ </div>
     </div>
   )
 }

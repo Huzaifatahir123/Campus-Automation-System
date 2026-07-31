@@ -9,11 +9,16 @@ interface Store {
   Logout: () => void;
   isFormOpen:boolean;
   toggleForm:()=>void;
+  User:any;
+  setUser:(user:any)=>void;
+  
 }
 
 export const useStore = create<Store>()(
   persist(
     (set) => ({
+      User:{},
+      setUser:(user:any)=>set({User:user}),
       isFormOpen:false,
       toggleForm:()=>set((state)=>({isFormOpen:!state.isFormOpen})),
       isNavbarOpen: false,

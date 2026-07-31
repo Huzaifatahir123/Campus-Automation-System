@@ -1,13 +1,15 @@
-"use client"
+
+'use client'
+import{useState,useEffect} from 'react'
 import TextFeild from '@/components/TextFeild'
 import Image from 'next/image'
-import React from 'react'
-import Table from '@/components/Table'
-import { studentsData } from '@/lib/data'
 import AddRecord from '@/components/AddRecord'
 import {useStore} from "@/store/useStore";
 import {Plus} from "lucide-react"
-const page = () => {
+import {getStudents} from "@/services/student/studentFetch"
+import ListCard from '@/components/student/ListCard'
+const Page = () => {
+   const [data,setData] = useState<any[]>([])
     const toggleForm = useStore((state)=>state.toggleForm);
     
   const coloumn = [
@@ -49,6 +51,17 @@ const page = () => {
     },
    
 ]
+async function loadStudents() {
+      const res:any = await getStudents();
+      if (res?.data.data) {
+        setData(res.data.data)
+      }
+    }
+useEffect(()=>{
+  
+
+    loadStudents();
+},[])
 
   return (
     <div className="px-4 relative md:px-8  py-4 w-full  h-full flex flex-col ">
@@ -83,19 +96,12 @@ const page = () => {
  {/* bottom section */}
 
  <div className='w-full h-full     mt-2'>
-{
-  studentsData ? (
-    <Table coloumn={coloumn} Data={studentsData}/>
-  ) : (
-    <div>
-      no teachers found 
-    </div>
-  )
-}
+  
+<ListCard data={data} role='student'/>
   
 </div>
     </div>
   )
 }
 
-export default page
+export default Page

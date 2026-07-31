@@ -12,6 +12,7 @@ import {useStore} from "@/store/useStore";
 const page = () => {
   const router = useRouter();
   const setRole = useStore((state)=>state.setRole);
+  const setUser = useStore((state)=>state.setUser);
   const [formData , setFormData] = useState<formStates>({
     email:"",
     password:"",
@@ -36,14 +37,16 @@ const page = () => {
         }) 
         const data = await response.json();
         setRole(data.data.role.toLowerCase());
-        console.log(data.message);
+        setUser(data.data);
+        
+        console.log(data.data);
         
         if(data.data.role === "Admin") { 
           router.push("/admin")
         };
           if(data.data.role === "Student") router.push("/student");
-            if(data.data.role === "Teacher") router.push("/teacher");
-              if(data.data.role === "Parent") router.push("/parent");
+          if(data.data.role === "Teacher") router.push("/teacher");
+          if(data.data.role === "Parent") router.push("/parent");
                 toast.success(data.message);
                 
         

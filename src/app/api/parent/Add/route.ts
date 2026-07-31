@@ -3,7 +3,7 @@ import { NextResponse,NextRequest } from "next/server";
 import bcrypt from 'bcrypt'
 export async function POST(req:Request) {
     
-   const data = await req.json();
+  const data = await req.json();
   const saltRounds = 10;
   const hashedPassword = await bcrypt.hash(data.password_hash, saltRounds);
   console.log(hashedPassword);

@@ -61,8 +61,8 @@ export async function POST(req:Request) {
                 data.registration_number,
                 data.section_id,
                 data.parentId,
-                data.blood_group,
                 data.address,
+                data.blood_group,
                 data.status
             ]
         );

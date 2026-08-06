@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import {Edit,Trash}  from "lucide-react"
+import { useRouter } from "next/navigation";
 type ListCardProps = {
   data: any[];
   role:string,
@@ -13,6 +14,7 @@ const statusStyles: Record<string, string> = {
 };
 
 const ListCard = ({ data ,role}: ListCardProps) => {
+  const router = useRouter();
   return (
     <div className="flex flex-col border border-neutral-200 rounded-2xl overflow-hidden bg-white">
       <div className="hidden md:grid grid-cols-[2fr_1.6fr_1fr_1fr_0.8fr_0.9fr_auto] gap-3 px-4 py-2.5 bg-neutral-50 border-b border-neutral-200 text-xs font-semibold uppercase tracking-wide text-neutral-500">
@@ -31,8 +33,9 @@ const ListCard = ({ data ,role}: ListCardProps) => {
 
         return (
           <div
+            
             key={student.registration_no}
-            className={`grid grid-cols-2 md:grid-cols-[2fr_1.6fr_1fr_1fr_0.8fr_0.9fr_auto] gap-3 items-center px-4 py-2.5 text-sm ${
+            className={`grid cursor-pointer grid-cols-2 md:grid-cols-[2fr_1.6fr_1fr_1fr_0.8fr_0.9fr_auto] gap-3 items-center px-4 py-2.5 text-sm ${
               i % 2 === 1 ? "bg-neutral-50/60" : "bg-white"
             } hover:bg-accent-50 transition-colors duration-150 border-b border-neutral-100 last:border-b-0`}
           >
@@ -40,9 +43,12 @@ const ListCard = ({ data ,role}: ListCardProps) => {
               <div className="flex items-center justify-center w-8 h-8 rounded-full bg-accent-100 text-accent-700 font-semibold text-xs shrink-0">
                 {initials || "?"}
               </div>
-              <span className="font-medium text-neutral-800 truncate">
+              <span onClick={()=>{
+              router.push(`/admin/students/${student.id}`)
+            }} className="font-medium text-neutral-800 truncate">
                 {student.first_name} {student.last_name}
               </span>
+              
             </div>
 
             <span className="text-neutral-600 truncate hidden md:block">{student.email || "—"}</span>
@@ -55,12 +61,14 @@ const ListCard = ({ data ,role}: ListCardProps) => {
             </span>
 
             <div className="flex justify-end gap-1.5">
-              <button
+              <button 
                 type="button"
                 aria-label="Edit student"
                 className="flex items-center justify-center w-7 h-7 rounded-lg text-accent-700 bg-accent-50 hover:bg-accent-100 transition-colors"
               >
-                <Edit className="cursor-pointer"/>
+                <Edit onClick={()=>{
+                router.push(`/admin/students/Edit/${student.id}`)
+              }} className="cursor-pointer"/>
               </button>
               <button
                 type="button"

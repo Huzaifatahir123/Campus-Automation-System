@@ -41,12 +41,12 @@ export const studentFields = [
  
 
  
-  {
+ /*{
     header: "parent_id",
     type: "number",
     placeholder: "Select or enter parent ID"
-  },
-  {
+  }, */
+   {
     header: "address",
     type: "text",
     placeholder: "Enter address"

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import {Edit,Trash}  from "lucide-react"
+import { useRouter } from "next/navigation";
 type ListCardProps = {
   data: any[];
   role:string,
@@ -13,6 +14,7 @@ const statusStyles: Record<string, string> = {
 };
 
 const ListCard = ({ data ,role}: ListCardProps) => {
+  const router = useRouter();
   return (
     <div className="flex flex-col border border-neutral-200 rounded-2xl overflow-hidden bg-white">
       <div className="hidden md:grid grid-cols-[2fr_1.6fr_1fr_1fr_0.8fr_0.9fr_auto] gap-3 px-4 py-2.5 bg-neutral-50 border-b border-neutral-200 text-xs font-semibold uppercase tracking-wide text-neutral-500">
@@ -31,8 +33,11 @@ const ListCard = ({ data ,role}: ListCardProps) => {
 
         return (
           <div
+          onClick={()=>{
+            router.push("/admin/teachers/123")
+          }}
             key={teacher.registration_no}
-            className={`grid grid-cols-2 md:grid-cols-[2fr_1.6fr_1fr_1fr_0.8fr_0.9fr_auto] gap-3 items-center px-4 py-2.5 text-sm ${
+            className={`grid cursor-pointer grid-cols-2 md:grid-cols-[2fr_1.6fr_1fr_1fr_0.8fr_0.9fr_auto] gap-3 items-center px-4 py-2.5 text-sm ${
               i % 2 === 1 ? "bg-neutral-50/60" : "bg-white"
             } hover:bg-accent-50 transition-colors duration-150 border-b border-neutral-100 last:border-b-0`}
           >

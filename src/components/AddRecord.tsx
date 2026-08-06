@@ -1,12 +1,12 @@
 "use client"
 import { useEffect ,useState} from "react"
+import ParentSearch from "@/components/student/ParentSearch"
 import {userFields} from "@/utils/fields"
 import {studentFields} from "@/utils/fields"
 import {parentFields} from "@/utils/fields"
 import {teacherFields} from "@/utils/fields"
-import { useForm } from 'react-hook-form';
+import { useForm,Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import axios from "axios"
 import {useStore} from "@/store/useStore";
 import {X,Loader2} from "lucide-react"
@@ -18,41 +18,7 @@ interface SectionOption {
   section_name: string;
   display_label: string;
 }
-const formSchema = z.object({
-  first_name: z.string().min(2, 'First name must be at least 2 characters'),
-  last_name: z.string().min(2, 'Last name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().min(10, 'Phone number must be at least 10 digits'),
-  password_hash: z.string().min(8, 'Password must be at least 8 characters'),
-  date_of_birth: z
-    .string()
-    .min(1, "Date of birth is required"),
 
- 
-  registration_number: z
-    .string()
-    .min(1, "Registration number is required"),
-
-
-
-  address: z
-    .string()
-    .min(5, "Address must be at least 5 characters"),
-
- 
-
-
-  blood_group: z.enum(["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"], {
-  message: "Please select a valid blood group",
-}),
-
-
-  status: z
-    .string()
-    .min(1, "Please select status"), 
-
-
-}).passthrough();
 
 const AddRecord = ({type,role,data}:{type?:string,role:string,data?:any,}) => {
   const schema =
@@ -65,29 +31,47 @@ const AddRecord = ({type,role,data}:{type?:string,role:string,data?:any,}) => {
   const toggleForm = useStore((state)=>state.toggleForm);
    
   const [claSec,setClasSec] = useState<SectionOption[]>([]);
-    const {register,handleSubmit ,formState:{errors,isSubmitting}}  = useForm<any>({
+    const {register,handleSubmit,control,reset
+       ,formState:{errors,isSubmitting}}  = useForm<any>({
   resolver: zodResolver(schema),
 }); 
     
-    const onFormSubmit = async (data:any)=>{
-        try{
-         const response = await axios.post(`/api/${role}/Add`,data);
-       toast.message(response.data.message)
-         console.log(data);
-        }catch(error){
-             console.error(error)
-        }
+    const onFormSubmit = async (formData: any) => {
+  try {
+    let response;
+
+    if (type === "edit") {
+      response = await axios.patch(
+        `/api/${role}/edit/${data.id}`,
+        formData
+      );
+    } else {
+      response = await axios.post(
+        `/api/${role}/Add`,
+        formData
+      );
+
+      reset();
     }
-    let renderFeilds: any = [];
+
+    toast.success(response.data.message);
+  } catch (error) {
+    console.error(error);
+  }
+}
+    let renderFields: any = [];
        if(role === "parent"){
-        renderFeilds = parentFields;
+        renderFields = parentFields;
        }else if(role === "student"){
-        renderFeilds = studentFields;
+        renderFields = studentFields;
        }
        else if (role === "teacher"){
-        renderFeilds = teacherFields;
+        renderFields  = teacherFields;
        }
-       const renderArray = [...userFields, ...renderFeilds];
+       const renderArray =
+  type === "edit"
+    ? [...userFields.filter(field => field.header !== "password_hash"), ...renderFields]
+    : [...userFields, ...renderFields];
 
     const fetchSections = async ()=>{
          try {
@@ -98,16 +82,21 @@ const AddRecord = ({type,role,data}:{type?:string,role:string,data?:any,}) => {
             console.error(error.message);
          }
     }
-       useEffect(()=>{
+ useEffect(()=>{
  fetchSections();
        },[])
+       useEffect(() => {
+  if (type === "edit" && data) {
+    reset(data);
+  }
+}, [type, data, reset]);
   return (
 
-    <div className={`${isFormOpen ? "flex" : "hidden"} absolute top-0 right-0 h-full w-104 bg-white border-l border-neutral-200 shadow-lg flex flex-col`}>
+    <div className={`${isFormOpen ? "flex" : "flex"} absolute top-0 right-0 h-full w-104 bg-white border-l border-neutral-200 shadow-lg flex flex-col`}>
   <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-200">
     <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-800">
-      Add {role}
-    </h2>
+  {type === "edit" ? `Edit ${role}` : `Add ${role}`}
+</h2>
     <button onClick={()=> toggleForm()}
       type="button"
       className="p-1.5 rounded-full text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition-colors"
@@ -138,6 +127,16 @@ const AddRecord = ({type,role,data}:{type?:string,role:string,data?:any,}) => {
     )}
       </div>
     ))}
+     {role === 'student' && (
+      <Controller
+      name="parent_id"
+      control={control}
+      render={({field})=>(
+        <ParentSearch value={field.value} onChange={field.onChange} />
+      )}
+      />
+      
+     )}
   {role === "student" && (
     <div className="flex flex-col gap-1.5 mb-4">
       <label className="text-xs uppercase text-neutral-500 font-semibold">
@@ -218,12 +217,17 @@ const AddRecord = ({type,role,data}:{type?:string,role:string,data?:any,}) => {
       Reset
     </button>
     <button
-      type="submit"
-      
-      className="flex-1 flex cursor-pointer justify-center items-center py-2.5 rounded-lg bg-accent-500 text-white text-sm font-medium hover:bg-accent-700 transition-colors"
-    >
-      {isSubmitting ? <Loader2 className="animate-spin" /> : "Register"}
-    </button>
+  type="submit"
+  className="flex-1 flex cursor-pointer justify-center items-center py-2.5 rounded-lg bg-accent-500 text-white text-sm font-medium hover:bg-accent-700 transition-colors"
+>
+  {isSubmitting ? (
+    <Loader2 className="animate-spin" />
+  ) : type === "edit" ? (
+    "Update"
+  ) : (
+    "Register"
+  )}
+</button>
   </div>
   </form>
 

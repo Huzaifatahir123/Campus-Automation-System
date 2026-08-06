@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 export async function POST(req:Request) {
     
    const data = await req.json();
+   console.log(data);
   const saltRounds = 10;
   const hashedPassword = await bcrypt.hash(data.password_hash, saltRounds);
   console.log(hashedPassword);
@@ -60,7 +61,7 @@ export async function POST(req:Request) {
                 userId,
                 data.registration_number,
                 data.section_id,
-                data.parentId,
+                data.parent_id,
                 data.address,
                 data.blood_group,
                 data.status

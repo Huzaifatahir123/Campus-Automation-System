@@ -18,6 +18,7 @@ export const createStudentSchema = z.object({
   ),
 
   status: z.string().min(1, "Please select status"),
+  parent_id: z.string().min(1, "Please select a parent"),
 });
 export const createTeacherSchema = z.object({
   first_name: z.string().min(2, "First name must be at least 2 characters"),

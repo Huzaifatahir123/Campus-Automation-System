@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import {Edit,Trash}  from "lucide-react"
 import { useRouter } from "next/navigation";
+import {useStore} from "@/store/useStore";
 type ListCardProps = {
   data: any[];
   role:string,
@@ -14,6 +15,7 @@ const statusStyles: Record<string, string> = {
 };
 
 const ListCard = ({ data ,role}: ListCardProps) => {
+  const toggleForm = useStore((state)=>state.toggleForm);
   const router = useRouter();
   return (
     <div className="flex flex-col border border-neutral-200 rounded-2xl overflow-hidden bg-white">
@@ -67,7 +69,9 @@ const ListCard = ({ data ,role}: ListCardProps) => {
                 className="flex items-center justify-center w-7 h-7 rounded-lg text-accent-700 bg-accent-50 hover:bg-accent-100 transition-colors"
               >
                 <Edit onClick={()=>{
+                
                 router.push(`/admin/students/Edit/${student.id}`)
+                toggleForm();  
               }} className="cursor-pointer"/>
               </button>
               <button

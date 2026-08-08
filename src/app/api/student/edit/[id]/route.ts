@@ -5,7 +5,7 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const client = await pool.connect();
+  
 
   try {
     const { id } = await params;
@@ -27,16 +27,16 @@ export async function PATCH(
       status,
     } = body;
 
-    await client.query("BEGIN");
+    await pool.query("BEGIN");
 
     // Get the related user_id
-    const studentResult = await client.query(
+    const studentResult = await pool.query(
       `SELECT user_id FROM students WHERE id = $1`,
       [id]
     );
 
     if (studentResult.rows.length === 0) {
-      await client.query("ROLLBACK");
+      await pool.query("ROLLBACK");
 
       return NextResponse.json(
         { message: "Student not found" },
@@ -47,7 +47,7 @@ export async function PATCH(
     const userId = studentResult.rows[0].user_id;
 
     // Update users table
-    await client.query(
+    await pool.query(
       `
       UPDATE users
       SET
@@ -67,9 +67,7 @@ export async function PATCH(
         userId,
       ]
     );
-
-    // Update students table
-    await client.query(
+    await pool.query(
       `
       UPDATE students
       SET
@@ -92,7 +90,7 @@ export async function PATCH(
       ]
     );
 
-    await client.query("COMMIT");
+    await pool.query("COMMIT");
 
     return NextResponse.json(
       {
@@ -101,7 +99,7 @@ export async function PATCH(
       { status: 200 }
     );
   } catch (error) {
-    await client.query("ROLLBACK");
+    await pool.query("ROLLBACK");
 
     console.error(error);
 
@@ -111,7 +109,5 @@ export async function PATCH(
       },
       { status: 500 }
     );
-  } finally {
-    client.release();
-  }
+  } 
 }

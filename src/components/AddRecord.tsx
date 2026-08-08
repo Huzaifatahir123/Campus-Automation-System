@@ -39,7 +39,8 @@ const AddRecord = ({type,role,data}:{type?:string,role:string,data?:any,}) => {
     const onFormSubmit = async (formData: any) => {
   try {
     let response;
-
+      console.log(formData)
+      console.log(type)
     if (type === "edit") {
       response = await axios.patch(
         `/api/${role}/edit/${data.id}`,
@@ -57,6 +58,7 @@ const AddRecord = ({type,role,data}:{type?:string,role:string,data?:any,}) => {
     toast.success(response.data.message);
   } catch (error) {
     console.error(error);
+    toast.error("An error occurred. Please try again.");
   }
 }
     let renderFields: any = [];
@@ -87,12 +89,18 @@ const AddRecord = ({type,role,data}:{type?:string,role:string,data?:any,}) => {
        },[])
        useEffect(() => {
   if (type === "edit" && data) {
-    reset(data);
+    console.log("Resetting form with data:", data);
+    reset({...data,
+      registration_number:String(data.registration_number),
+      section_id:String(data.section_id),
+      parent_id:String(data.parent_id)
+    
+    });
   }
 }, [type, data, reset]);
   return (
 
-    <div className={`${isFormOpen ? "flex" : "flex"} absolute top-0 right-0 h-full w-104 bg-white border-l border-neutral-200 shadow-lg flex flex-col`}>
+    <div className={`${isFormOpen ? "flex" : type === "edit" && isFormOpen ? "flex" : "hidden"} absolute top-0 right-0 h-full w-104 bg-white border-l border-neutral-200 shadow-lg flex flex-col`}>
   <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-200">
     <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-800">
   {type === "edit" ? `Edit ${role}` : `Add ${role}`}

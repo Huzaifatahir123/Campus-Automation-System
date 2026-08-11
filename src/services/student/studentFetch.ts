@@ -9,3 +9,16 @@ export async function getStudents(search:string):Promise<{}>{
                 return {}
              }
 }
+export async function getStudentById(id:string):Promise<{}>{
+    try {
+       const response = await axios.get(`/api/student/fetch/${id}`);
+       console.log(response.data);
+       return response
+    } catch (error:any) {
+
+       console.error(error.message)
+       return {}
+   
+      }
+       
+   }

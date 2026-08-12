@@ -63,16 +63,16 @@ const ListCard = ({ data ,role}: ListCardProps) => {
             </span>
 
             <div className="flex justify-end gap-1.5">
-              <button 
+              <button  onClick={()=>{
+                
+                router.push(`/admin/students/Edit/${student.id}`)
+                toggleForm();  
+              }}
                 type="button"
                 aria-label="Edit student"
                 className="flex items-center justify-center w-7 h-7 rounded-lg text-accent-700 bg-accent-50 hover:bg-accent-100 transition-colors"
               >
-                <Edit onClick={()=>{
-                
-                router.push(`/admin/students/Edit/${student.id}`)
-                toggleForm();  
-              }} className="cursor-pointer"/>
+                <Edit  className="cursor-pointer"/>
               </button>
               <button
                 type="button"

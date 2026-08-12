@@ -60,7 +60,7 @@ const ListCard = ({ data ,role}: ListCardProps) => {
             </span>
 
             <div className="flex justify-end gap-1.5">
-              <button
+              <button 
                 type="button"
                 aria-label="Edit parent"
                 className="flex items-center justify-center w-7 h-7 rounded-lg text-accent-700 bg-accent-50 hover:bg-accent-100 transition-colors"
